@@ -1,11 +1,11 @@
 // Join server
 var express = require('express')
 var app = express()
-
+var port = process.env.PORT || 1337
 //Join DateBase
 var MongoClient = require('mongodb').MongoClient
 var ObjectId = require('mongodb').ObjectID
-var url = 'mongodb://127.0.0.1:27017'
+var url = 'mongodb://admin:q2w3e4r5@ds261136.mlab.com:61136/heroku_695mr875'
 
 
 // запрос на регистрацию пользователя в базу монгоДБ с проверкой на совпадение по логину
@@ -15,7 +15,7 @@ app.get('/auth', (req, res) => {
     
     MongoClient.connect(url, (err, db) => {
             if (err) throw err;
-            var dbo = db.db("lesson")
+            var dbo = db.db("heroku_695mr875")
             dbo.collection('users').findOne({login: req.query.login}, ((err, check) => {
                 if (err) throw err;
                 if (!check) {
@@ -40,14 +40,14 @@ app.get('/auth', (req, res) => {
             }))               
     })
 })
-
+//проверка логина
 app.get('/login', (req, res) => {
     var login = req.query.login
     var pwd = req.query.password
 
     MongoClient.connect(url, (err, db) => {
         if (err) throw err;
-        var dbo = db.db('lesson')
+        var dbo = db.db('heroku_695mr875')
         dbo.collection('users').findOne({login: req.query.login, password: req.query.password}, (err, check) => {
             if (check) {
                 res.json({type: 'You are login!', user: check})
@@ -59,7 +59,7 @@ app.get('/login', (req, res) => {
         })
     })
 })
-
+//изменение пароля
 app.get('/change_pwd', (req, res) => {
     var login = req.query.login
     var pwd = req.query.password
@@ -67,7 +67,7 @@ app.get('/change_pwd', (req, res) => {
 
     MongoClient.connect(url, (err, db) => {
         if (err) throw err;
-        var dbo = db.db('lesson')
+        var dbo = db.db('heroku_695mr875')
         dbo.collection('users').updateOne({login: req.query.login, password: req.query.password}, {$set: {password: req.query.new_password}}, (err, result) => {
             if (err) throw err;
             if (result) {
@@ -82,8 +82,8 @@ app.get('/change_pwd', (req, res) => {
 
 
 // UP our server
-app.listen(1337, () => {
+app.listen(port, () => {
     var dt = new Date();
-    console.log("Server 'Test auth with MongoDB' listening on port 1337 on: " + dt)
+    console.log("Server 'Test auth with MongoDB' listening on port: " + dt)
     
 })
