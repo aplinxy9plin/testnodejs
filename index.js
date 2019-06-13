@@ -5,7 +5,8 @@ var port = process.env.PORT || 1337
 //Join DateBase
 var MongoClient = require('mongodb').MongoClient
 var ObjectId = require('mongodb').ObjectID
-var url = 'mongodb://127.0.0.1:27017' //'mongodb://admin:q2w3e4r5@ds261136.mlab.com:61136/heroku_695mr875' - внешняя ДБ
+var url = 'mongodb://127.0.0.1:27017' // локальная ДБ
+//var url = 'mongodb://admin:q2w3e4r5@ds261136.mlab.com:61136/heroku_695mr875' // внешняя ДБ
 
 
 // запрос на регистрацию пользователя в базу монгоДБ с проверкой на совпадение по логину
