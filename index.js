@@ -58,6 +58,7 @@ app.get('/login', (req, res) => {
                 res.json({type: 'Wrong password'})
                 console.log(login + ' try login, password wrong.')
               }
+            db.close()
         })
     })
 })
@@ -78,6 +79,7 @@ app.get('/change_pwd', (req, res) => {
               } else {
                 res.json({type: 'err'})
               }
+            db.close()
         })
     })
 })
@@ -115,10 +117,12 @@ app.get('/send_msg', (req, res) => {
                                 } else {
                                     res.json({type: 'server_err'})
                                 }
+                                db.close()
                             })
                     } else {
                         console.log(toLog + ' not found, try another user.')
                         res.json({type: 'err. Try another user.'})
+                        db.close()
                     }
                 })
             } else {
@@ -150,10 +154,12 @@ app.get('/all_msg', (req, res) => {
                         console.log('ERROR')
                         res.json({type: 'err'})
                     }
+                    db.close()
                 })   
             } else {
                 console.log(login + ' not found, try another user.')
                 res.json({type: 'err. Try another user.'})
+                db.close()
             }
         })
     })
@@ -208,6 +214,7 @@ app.get('/get_msg', (req, res) => {
             console.log(youLogin + ' not found, try another user.')
             res.json({type: 'err. Try another user.'})
         }
+            db.close()
         })
     })
 })
